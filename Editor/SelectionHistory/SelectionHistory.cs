@@ -22,11 +22,15 @@ namespace Hextant.Editor
         [MenuItem( "Edit/Selection/History Forward #F1" )] // Shift + F1
         static void OnForward() => instance.Forward();
 
+        /// <summary>
+        /// Invoked when the selection changes. You can use this to refresh GUIs.
+        /// </summary>
+        public System.Action SelectionUpdated;
+
         // Move backwards one entry in the history.
-        void Back()
+        public void Back()
         {
-            // Return if there are no previous entries.
-            if( _currentIndex <= 0 ) return;
+            if( !HasPreviousEntries() ) return;
 
             // Move backwards and remove any entries that are now null or the same.
             var selected = _current;
@@ -40,10 +44,9 @@ namespace Hextant.Editor
         }
 
         // Move forwards one entry in the history.
-        void Forward()
+        public void Forward()
         {
-            // Return if there are no newer entries.
-            if( _currentIndex == _history.Count - 1 ) return;
+            if( !HasNewerEntries() ) return;
 
             // Move forwards and remove any entries that are now null or the same.
             var selected = _current;
@@ -54,6 +57,37 @@ namespace Hextant.Editor
             // Select the current entry if it is valid.
             if( !IsNull( _current ) )
                 Selection.objects = _current;
+        }
+
+        // Does the selection history have previous entries to current?
+        public bool HasPreviousEntries()
+        {
+            return _currentIndex > 0 && _history.Count > 1;
+        }
+
+        // Does the selection history have newer entries than current?
+        public bool HasNewerEntries()
+        {
+            return _currentIndex >= 0 && _currentIndex < _history.Count - 1;
+        }
+
+        // Get the previously selected Objects in the history
+        public Object[] GetPreviousObjects()
+        {
+            return HasPreviousEntries() ? _history[_currentIndex - 1] : null;
+        }
+
+        // Get newer Objects in the history
+        public Object[] GetNewerObjects()
+        {
+            return HasNewerEntries() ? _history[_currentIndex + 1] : null;
+        }
+
+        // Clear the history
+        public void Clear()
+        {
+            _currentIndex = -1;
+            _history.Clear();
         }
 
         // Adds the specified objects entry to the history.
@@ -78,7 +112,11 @@ namespace Hextant.Editor
         }
 
         // Called initially or when the selection changes to update the history.
-        void UpdateSelection() => Add( Selection.objects );
+        void UpdateSelection()
+        {
+            Add( Selection.objects );
+            SelectionUpdated?.Invoke();
+        }
 
         // Called when the instance is created or after a domain reload.
         void OnEnable()
