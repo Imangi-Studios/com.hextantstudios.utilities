@@ -128,7 +128,7 @@ namespace Hextant.Editor
                 return string.Empty;
             }
 
-            var label = objects[0].name;
+            var label = objects[0] != null ? objects[0].name : "<DELETED";
 
             if( objects.Length > 1)
             {
