@@ -50,7 +50,7 @@ namespace Hextant.Editor
                 new GenericMenu.MenuFunction(SelectionHistory.instance.Clear));
         }
 
-        [MenuItem("Window/SelectionHistory")]
+        [MenuItem("Window/Imangi/SelectionHistory")]
         private static SelectionHistoryWindow OpenSelectionHistoryWindow()
         { 
             var window = EditorWindow.GetWindow<SelectionHistoryWindow>(false, "History");
