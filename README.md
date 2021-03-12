@@ -1,3 +1,8 @@
+# Imangi Contributions
+
+* Imported a GUI for SelectionHistory, based off the [RBG Fork](https://github.com/redbluegames/com.hextantstudios.utilities)
+* Removed Settings and Log Compile time, for now, as we don't have plans to use them at this time.
+
 # Hextant - Utilities
 
 This repository contains a collection of helpful runtime and editor classes for Unity. 
@@ -30,14 +35,8 @@ This editor plug-in derives from the `EditorSingleton` class allowing it to main
 
 ## Log Compile Times
 
-This simple plug-in for Unity's Editor logs how long it takes to compile script changes and perform domain reloads to quickly spot potential issues that can affect iteration times.
-
-* See [Log Compile Times in Unity's Editor](https://hextantstudios.com/unity-log-compile-times/) for additional details.
+Removed in this fork. See [upstream](https://github.com/hextantstudios/com.hextantstudios.utilities) for details on this utility.
 
 ## Settings
 
-A `ScriptableObject`-based singleton that can be used to store project-wide or user-specific settings for editor plug-ins or project-wide settings for use at runtime. Settings can be easily exposed to the *Edit/Preferences* and *Edit/Project Settings* dialogs or modified manually by plug-ins. 
-
-*Note:* The user settings folder `Assets/Settings/Editor/User/` should be excluded from source control.
-
-* See [Custom Runtime and Editor Settings in Unity](https://HextantStudios.com/unity-custom-settings)
+Removed in this fork. See [upstream](https://github.com/hextantstudios/com.hextantstudios.utilities) for details on this utility.
